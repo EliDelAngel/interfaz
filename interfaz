@@ -1,0 +1,216 @@
+--------------------------------------------MainActivity.java-----------------------------
+package com.example.interfaz;
+
+import android.app.Activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends Activity {
+    RadioGroup radioGroup;
+    private Spinner spinner1;
+    private EditText origen, destino;
+    List<String> med = new ArrayList<>();
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        spinner1=(Spinner)findViewById(R.id.mySpiner);
+        origen = (EditText) findViewById(R.id.origen);
+        destino = (EditText) findViewById(R.id.destino);
+        radioGroup = findViewById(R.id.opciones);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+
+            public void onCheckedChanged(RadioGroup group, int chekedId) {
+                if (chekedId == R.id.temperatura) {
+                    med.clear();
+                    med.add("Seleccionar");
+                    med.add("Centigrados->Farenheit");
+                    med.add("Farenheit->Centigrados");
+                    Toast.makeText(getApplicationContext(), "temperatura", Toast.LENGTH_SHORT).show();
+                } else if (chekedId == R.id.longitud) {
+                    med.clear();
+                    med.add("Seleccionar");
+                    med.add("Metros->Yardas");
+                    med.add("Yardas->Metros");
+                    med.add("Kilometros->Millas");
+                    med.add("Millas->Kilometros");
+                    Toast.makeText(getApplicationContext(), "Longitud", Toast.LENGTH_SHORT).show();
+                } else if (chekedId == R.id.volumen) {
+                    med.clear();
+                    med.add("Seleccionar");
+                    med.add("Litros->Galones");
+                    med.add("Galones->Litros");
+                    Toast.makeText(getApplicationContext(), "volumen", Toast.LENGTH_SHORT).show();
+                } else if (chekedId == R.id.aceleracion) {
+                    med.clear();
+                    med.add("Seleccionar");
+                    med.add("Km/H->Millas/H");
+                    med.add("Millas/H->Km/H");
+                    Toast.makeText(getApplicationContext(), "Aceleraicon", Toast.LENGTH_SHORT).show();
+                } else if (chekedId == R.id.peso) {
+                    med.clear();
+                    med.add("Seleccionar");
+                    med.add("Kilos->Libras");
+                    med.add("Libras->Kilos");
+                    med.add("Gramos->Onzas");
+                    med.add("Onzas->Gramos");
+                    Toast.makeText(getApplicationContext(), "peso", Toast.LENGTH_SHORT).show();
+                } else if (chekedId == R.id.area) {
+                    med.clear();
+                    med.add("Seleccionar");
+                    med.add("Metros Cuadrados->Hectareas");
+                    med.add("Hectareas->Metros Cuadrados");
+                    Toast.makeText(getApplicationContext(), "Area", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
+        ArrayAdapter<String> a = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, med);
+        spinner1.setAdapter(a);
+
+    }
+
+    public void Calcular (View view){
+        String valor = origen.getText().toString();
+        float valorint = Integer.parseInt(valor);
+        String seleccion = spinner1.getSelectedItem().toString();
+        if(seleccion.equals("Centigrados->Farenheit")){
+            float resultado=(((9/5)*valorint)+32);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+       else if(seleccion.equals("Farenheit->Centigrados")){
+            float resultado=((valorint-32)*5/9);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Metros->Yardas")){
+            float resultado= (float) (valorint*1.09);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+        else if(seleccion.equals("Kilometros->Millas")){
+            float resultado= (float) (valorint *(1.6));
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Millas->Kilometros")){
+            float resultado= (float) (valorint *(1.6/1));
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Litros->Galones")){
+            float resultado= (float) (valorint/.026);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+        else if(seleccion.equals("Galones->Litros")){
+            float resultado= (float) (valorint*3.7);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Km/H->Millas/H")){
+            float resultado= (float) (valorint*.62);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Millas/H->Km/H")){
+            float resultado= (float) (valorint*1.62);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Kilos->Libras")){
+            float resultado= (float) (valorint*2.2);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Libras->Kilos")){
+            float resultado= (float) (valorint*.45);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+        else if(seleccion.equals("Gramos->Onzas")){
+            float resultado= (float) (valorint*.035);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Onzas->Gramos")){
+            float resultado= (float) (valorint*28.3);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Metros Cuadrados->Hectareas")){
+            float resultado= (float) (valorint*0001);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+        else if(seleccion.equals("Hectareas->Metros Cuadrados")){
+            float resultado= (float) (valorint*1000);
+            String resultadoS=String.valueOf(resultado);
+            destino.setText(resultadoS);
+        }
+
+
+    }
+
+------------------------------------------------strings.xml-----------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ControlsBasics</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="origen">Origen</string>
+    <string name="email">Correo:</string>
+    <string name="destino">Destino</string>
+</resources>
+
+
+
+-----------------------------------------------styles.xml--------------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
+
+---------------------------------------------colors.xml----------------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+</resources>
